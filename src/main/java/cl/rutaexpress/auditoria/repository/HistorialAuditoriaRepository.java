@@ -13,7 +13,13 @@ public interface HistorialAuditoriaRepository extends JpaRepository<HistorialAud
 
     List<HistorialAuditoria> findByEnvioIdOrderByFechaEventoAsc(Long envioId);
 
+    List<HistorialAuditoria> findByEnvioIdAndCodigoSeguimientoOrderByFechaEventoAsc(Long envioId, String codigoSeguimiento);
+
     List<HistorialAuditoria> findByCodigoSeguimientoOrderByFechaEventoAsc(String codigoSeguimiento);
+
+    boolean existsByEnvioIdAndCodigoSeguimientoNot(Long envioId, String codigoSeguimiento);
+
+    boolean existsByCodigoSeguimientoAndEnvioIdNot(String codigoSeguimiento, Long envioId);
 
     boolean existsByEventoId(String eventoId);
 

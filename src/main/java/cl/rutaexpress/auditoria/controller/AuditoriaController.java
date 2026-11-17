@@ -24,8 +24,10 @@ public class AuditoriaController {
     }
 
     @GetMapping("/envios/{id}")
-    public ResponseEntity<TimelineEnvioResponse> obtenerTimelinePorEnvio(@PathVariable Long id) {
-        TimelineEnvioResponse response = auditoriaService.obtenerTimelinePorEnvioId(id);
+    public ResponseEntity<TimelineEnvioResponse> obtenerTimelinePorEnvio(
+            @PathVariable Long id,
+            @RequestParam(required = false) String codigoSeguimiento) {
+        TimelineEnvioResponse response = auditoriaService.obtenerTimeline(id, codigoSeguimiento);
         return ResponseEntity.ok(response);
     }
 
@@ -35,6 +37,7 @@ public class AuditoriaController {
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fechaDesde,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fechaHasta,
             @RequestParam(required = false) String estadoNuevo,
+            @RequestParam(required = false) String codigoSeguimiento,
             @PageableDefault(size = 20, sort = "fechaEvento", direction = Sort.Direction.DESC) Pageable pageable) {
 
         Page<TimelineItemResponse> response = auditoriaService.listarEventos(
@@ -42,6 +45,7 @@ public class AuditoriaController {
                 fechaDesde,
                 fechaHasta,
                 estadoNuevo,
+                codigoSeguimiento,
                 pageable
         );
         return ResponseEntity.ok(response);

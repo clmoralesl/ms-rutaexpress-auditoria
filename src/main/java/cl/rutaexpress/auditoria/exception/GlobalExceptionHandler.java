@@ -32,6 +32,17 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
     }
 
+    @ExceptionHandler(HistorialAmbiguoException.class)
+    public ResponseEntity<Map<String, Object>> handleAmbiguo(HistorialAmbiguoException ex) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("status", HttpStatus.CONFLICT.value());
+        body.put("error", "Historial Ambiguo");
+        body.put("mensaje", ex.getMessage());
+        body.put("codigosSeguimiento", ex.getCodigosSeguimiento());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(body);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handleGeneral(Exception ex) {
         Map<String, Object> body = new LinkedHashMap<>();

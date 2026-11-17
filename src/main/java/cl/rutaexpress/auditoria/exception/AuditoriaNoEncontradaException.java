@@ -9,4 +9,9 @@ public class AuditoriaNoEncontradaException extends RuntimeException {
     public static AuditoriaNoEncontradaException paraEnvio(Long envioId) {
         return new AuditoriaNoEncontradaException("No se encontro historial de auditoria para el envio con ID: " + envioId);
     }
+
+    public static AuditoriaNoEncontradaException paraEnvioYCodigo(Long envioId, String codigoSeguimiento) {
+        return new AuditoriaNoEncontradaException("No se encontro historial de auditoria para el envio con ID "
+                + envioId + " y codigo de seguimiento " + codigoSeguimiento);
+    }
 }
